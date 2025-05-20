@@ -24,35 +24,73 @@ En función de la opción seleccionada realizará la o peración y si pulsa la o
         <title>Calculadora Básica</title>
 
         <script>
+            // Declaración de variables input1 e input2 en un ámbito superior para que sean accesibles en ambas funciones
+            let input1, input2;
+
             function operacion() {
-                var x = Number(prompt("Sr. usuario, introduce una opcion"));
-                var w = document.getElementById('resultado');
+                // Se solicita al usuario que introduzca una opción del menú
+                let x = Number(prompt("Sr. usuario, introduce una opción:\n1 para sumar\n2 para restar\n3 para multiplicar\n4 para dividir\n5 para obtener el módulo\n6 para salir"));
+
+                // Se obtiene el elemento HTML donde se mostrará el resultado
+                let w = document.getElementById('resultado');
+
+                // Se comprueba si los valores introducidos son números válidos
+                if (isNaN(input1) || isNaN(input2)) {
+                    w.innerHTML = "Error: Introduce números válidos.";
+                    return; // Sale de la función si no son números válidos
+                }
+
+                // Se realiza la operación según la opción elegida
                 switch (x) {
-                    case 1 :
-                        w.innerHTML = input1 + input2;
+                    case 1:
+                        w.innerHTML = input1 + input2; // Suma
                         break;
-                    case 2 :
-                        w.innerHTML = input1 - input2;
+
+                    case 2:
+                        w.innerHTML = input1 - input2; // Resta
                         break;
-                    case 3 :
-                        w.innerHTML = input1 / input2;
+
+                    case 3:
+                        w.innerHTML = input1 * input2; // Multiplicación (corregido)
                         break;
-                    case 4 :
-                        w.innerHTML = input1 * input2;
+
+                    case 4:
+                        w.innerHTML = input1 / input2; // División (corregido)
                         break;
-                    case 5 :
-                        w.innerHTML = input1 % input2;
+
+                    case 5:
+                        w.innerHTML = input1 % input2; // Módulo
                         break;
-                    case 6 :
-                        document.body.innerHTML = "¡Se ha salido!";
+
+                    case 6:
+                        // Si el usuario elige salir, se muestra un cuadro de confirmación
+                        if (confirm("¿Estás seguro de que quieres salir?")) {
+                            document.body.innerHTML = "¡Se ha salido!"; // Se muestra un mensaje de salida
+                        } else {
+                            operacion(); // Si no confirma, se vuelve a mostrar el menú
+                        }
                         break;
+
+                    default:
+                        w.innerHTML = "Opción no válida."; // Si la opción no es válida, se muestra un mensaje de error
                 }
             }
 
             function iniciar() {
-                input1 = Number(prompt("Sr. usuario, introduce un valor"));
+                // Se solicita al usuario que introduzca el primer valor
+                input1 = Number(prompt("Sr. usuario, introduce el primer valor"));
+
+                // Se solicita al usuario que introduzca el segundo valor
                 input2 = Number(prompt("Sr. usuario, introduce el segundo valor"));
 
+                // Se comprueba si los valores introducidos son números válidos
+                if (isNaN(input1) || isNaN(input2)) {
+                    alert("Por favor, introduce números válidos.");
+                    iniciar(); // Si no son números válidos, se vuelve a solicitar los valores
+                    return; // Sale de la función
+                }
+
+                // Se muestra los valores introducidos en la página
                 document.getElementById('entrada1').innerHTML = "Primer valor → " + input1;
                 document.getElementById('entrada2').innerHTML = "Segundo valor → " + input2;
             }
@@ -72,8 +110,9 @@ En función de la opción seleccionada realizará la o peración y si pulsa la o
             <li>Pulse 5 para obtener el módulo</li>
             <li>Pulse 6 para salir</li>
         </ul>
+
         <p>
-            En función de la opción seleccionada realizará la o peración y si pulsa la opción 6, con el botón confirm preguntar si está seguro de salir, si es que si cerrará la ventana si es que no, se volverá a elegir una opción del menú.
+            En función de la opción seleccionada realizará la operación y si pulsa la opción 6, con el botón confirm preguntar si está seguro de salir, si es que si cerrará la ventana si es que no, se volverá a elegir una opción del menú.
         </p>
 
         <div id="entrada1" style="color:red;font-size:1.6em"></div>
@@ -84,7 +123,7 @@ En función de la opción seleccionada realizará la o peración y si pulsa la o
         </form>
 
         <div id="resultado" style="color:green;font-size:1.6em;margin:auto;text-align:center;">
-            Pulsa para realizar una operacion
+            Pulsa para realizar una operación
         </div>
     </body>
 </html>
